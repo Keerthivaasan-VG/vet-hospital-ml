@@ -13,7 +13,7 @@ app = Flask(__name__, static_folder='static', template_folder='templates')
 CORS(app)
 
 # !!! PASTE YOUR KEY HERE !!!
-API_KEY = "AIzaSyCGYIXfBIjKBpqn5SlAUKrIoDeWTD0g8wc"  # <--- REPLACE WITH YOUR ACTUAL KEY
+API_KEY = "AIzaSyDZaNZL5_Czxd5SvUxySzzmpi8XihNvavA"  # <--- REPLACE WITH YOUR ACTUAL KEY
 genai.configure(api_key=API_KEY)
 
 # --- AUTO-DETECT WORKING MODEL ---
