@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetCare AI - Veterinary Hospital Assistant</title>
+    <link rel="stylesheet" href="static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-paw"></i>
+                <span>PetCare AI</span>
+            </div>
+            <nav class="nav">
+                <a href="#home">Home</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Identify Your Pet's Breed with AI</h1>
+                <p>Upload a photo and get instant breed detection, care tips, and find nearby veterinary hospitals</p>
+                <a href="#upload-section" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="hero-image">
+                <i class="fas fa-dog"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-camera"></i></div>
+                    <h3>1. Upload Photo</h3>
+                    <p>Take or upload a clear photo of your pet</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h3>2. AI Analysis</h3>
+                    <p>Our AI identifies the animal and breed</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-info-circle"></i></div>
+                    <h3>3. Get Information</h3>
+                    <p>Receive care tips, vaccination info, and more</p>
+                </div>
+                <div class="step">
+                    <div class="step-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>4. Find Vets</h3>
+                    <p>Locate nearby veterinary hospitals</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="upload-section" id="upload-section">
+        <div class="container">
+            <h2>Identify Your Pet</h2>
+            <div class="upload-container">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                    <h3>Choose Upload Method</h3>
+                    <p>Take a photo or select from your device</p>
+                    <div class="upload-buttons">
+                        <label for="fileInput" class="upload-btn">
+                            <i class="fas fa-file-image"></i> Choose File
+                        </label>
+                        <button id="cameraBtn" class="upload-btn camera-btn">
+                            <i class="fas fa-camera"></i> Take Photo
+                        </button>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <video id="camera" autoplay playsinline hidden></video>
+                    <button id="captureBtn" class="upload-btn" hidden>
+                        <i class="fas fa-circle"></i> Capture
+                    </button>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="preview-area" id="previewArea" hidden>
+                    <div class="preview-header">
+                        <h3>Image Preview</h3>
+                        <button id="cancelBtn" class="icon-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                    <img id="previewImage" src="" alt="Preview">
+                    <button id="analyzeBtn" class="analyze-btn">
+                        <i class="fas fa-search"></i> Analyze Pet
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div class="loading-state" id="loadingState" hidden>
+                    <div class="spinner"></div>
+                    <h3>Analyzing your pet...</h3>
+                    <p id="loadingTip">Did you know? Regular vet checkups are essential for your pet's health!</p>
+                </div>
+
+                <!-- Results Area -->
+                <div class="results-area" id="resultsArea" hidden>
+                    <div class="result-header">
+                        <h2>Detection Results</h2>
+                        <button id="newAnalysisBtn" class="icon-btn"><i class="fas fa-redo"></i> New Analysis</button>
+                    </div>
+                    
+                    <div class="detection-cards">
+                        <div class="detection-card">
+                            <h3>Animal Detected</h3>
+                            <div class="detection-value">
+                                <span id="animalType">-</span>
+                                <span class="confidence" id="animalConfidence">-</span>
+                            </div>
+                        </div>
+                        <div class="detection-card">
+                            <h3>Breed Identified</h3>
+                            <div class="detection-value">
+                                <span id="breedType">-</span>
+                                <span class="confidence" id="breedConfidence">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="breed-info" id="breedInfo">
+                        <h3><i class="fas fa-info-circle"></i> Breed Information</h3>
+                        <div class="info-grid">
+                            <div class="info-item">
+                                <i class="fas fa-globe"></i>
+                                <div>
+                                    <h4>Origin</h4>
+                                    <p id="origin">-</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <div>
+                                    <h4>Price Range</h4>
+                                    <p id="priceRange">-</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-syringe"></i>
+                                <div>
+                                    <h4>Vaccinations</h4>
+                                    <ul id="vaccinations"></ul>
+                                </div>
+                            </div>
+                            <div class="info-item full-width">
+                                <i class="fas fa-heart"></i>
+                                <div>
+                                    <h4>Description</h4>
+                                    <p id="description">-</p>
+                                </div>
+                            </div>
+                            <div class="info-item full-width">
+                                <i class="fas fa-lightbulb"></i>
+                                <div>
+                                    <h4>Care Tips</h4>
+                                    <ul id="careTips"></ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Veterinary Hospital Locator -->
+                    <div class="vet-locator">
+                        <h3><i class="fas fa-hospital"></i> Find Nearby Veterinary Hospitals</h3>
+                        <div class="location-search">
+                            <input type="text" id="locationInput" placeholder="Enter your location or use current location">
+                            <button id="useLocationBtn" class="location-btn">
+                                <i class="fas fa-location-arrow"></i> Use My Location
+                            </button>
+                            <button id="searchVetsBtn" class="search-btn">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                        <div id="map" class="map-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-paw"></i> PetCare AI</h3>
+                    <p>Powered by Machine Learning to help you care for your pets better.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#how-it-works">How It Works</a>
+                    <a href="#upload-section">Try Now</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-envelope"></i> support@petcareai.com</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PetCare AI. Machine Learning Project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Chatbot -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-header">
+            <div class="chatbot-title">
+                <i class="fas fa-comments"></i>
+                <span>PetCare Assistant</span>
+            </div>
+            <button id="closeChatBtn" class="icon-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="chatbot-messages" id="chatbotMessages">
+            <div class="bot-message">
+                <i class="fas fa-robot"></i>
+                <div class="message-content">
+                    <p>Hi! I'm your PetCare AI Assistant. Ask me anything about pet care, vaccinations, or health tips!</p>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Ask about pet care...">
+            <button id="sendChatBtn"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <button class="chatbot-toggle" id="chatbotToggle">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <script src="static/js/main.js"></script>
+    <script src="static/js/chatbot.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places&callback=initMap"></script>
+</body>
+</html>

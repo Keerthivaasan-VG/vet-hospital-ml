@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: petcare-ai
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && gunicorn app:app
+    envVars:
+      - key: AI_PROVIDER
+        value: gemini
+      - key:  AIzaSyCGYIXfBIjKBpqn5SlAUKrIoDeWTD0g8wc
+        sync: false
